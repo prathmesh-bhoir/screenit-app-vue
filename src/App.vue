@@ -22,11 +22,24 @@ body{
   color: black;
 }
 
+.dark-mode{
+  background-color: #0F1017;
+  color: #fff;
+}
+.dark-mode .my-container{
+  background-color: #212531;
+}
+
 .my-container{
   background-color: #fff;
 }
 
+
 .my-item:hover{
   color: #625AFC;
+}
+
+.pointer{
+  cursor: pointer;
 }
 </style>

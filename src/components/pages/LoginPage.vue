@@ -1,6 +1,14 @@
 <template>
-  <div>
-    hello
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="my-container container">
+
+    </div>
+    <div class="container">
+      <h2>
+        Don't have an account?
+      </h2>
+      
+    </div>
   </div>
 </template>
 

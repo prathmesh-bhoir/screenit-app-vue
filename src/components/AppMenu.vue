@@ -6,7 +6,7 @@
                 <AppLogo />
             </div>
             <div class="menu-items d-flex justify-content-around">
-                <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'home' }">HOME</router-link>
+                <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">HOME</router-link>
                 <div>WISHLIST</div>
             </div>
         </div>
@@ -14,7 +14,7 @@
             <div class="menu-items user-container">
                 <div>
                     <button @click="goLogin()" class="login-btn my-item my-container">
-                        <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="faR fa-user"/>
+                        <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="far fa-user"/>
                         LOGIN
                     </button>
                 </div>              
@@ -28,7 +28,7 @@
                 <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'home' }">
                     <div class="d-flex flex-column">
                         <font-awesome-icon icon="fa-solid fa-house"/>
-                        <div class="my-item">HOME</div>
+                        <div class="">HOME</div>
                     </div>
                 </router-link>
             </div>
@@ -77,13 +77,18 @@ export default {
 }
 
 .login-btn{
-    border: 1px solid lightgrey;
+    border: 1px solid grey;
+    color: inherit;
     border-radius: 5px;
     padding: 0.5em;
+}
+.login-btn:hover{
+    color: #625AFC;
 }
 
 .bottom-menu{
     display: none;
+    border-top: solid 1px #F2F4F8;
     padding: 0 1.5em;
     width: 100vw;
     position: fixed;

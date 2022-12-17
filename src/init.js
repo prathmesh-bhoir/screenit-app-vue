@@ -8,7 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 // import any icons that you use in the app
-import { fas, faR, faHome } from '@fortawesome/free-solid-svg-icons'
+import { fas, faHome } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -25,7 +26,7 @@ Vue.use(Vuelidate);
 Vue.use(VueToast);
 
 /* add icons to the library */
-library.add( fas, faR, faHome )
+library.add( fas, far, faHome )
 
 /* use Vue.component( componentName, ComponentObject ) to globally register the component - once you globally register a component you don't need to locally register in each and every component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
