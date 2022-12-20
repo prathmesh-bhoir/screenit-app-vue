@@ -22,11 +22,11 @@
           </div>
           <div>
             <p class="bolder">Theme</p>
-            <div class="text-secondary pointer">
+            <div @click.prevent="themeDark()" class="text-secondary pointer">
               <font-awesome-icon icon="fa-regular fa-moon" />
               <span>    Dark</span>
             </div>
-            <div class="text-secondary pointer">
+            <div @click.prevent="themeLight()" class="text-secondary pointer">
               <font-awesome-icon icon="fa-regular fa-sun" />
               <span>    Light</span>
             </div>
@@ -42,8 +42,21 @@ import AppLogo from './AppLogo.vue';
 
 export default {
     name: 'AppFooter',
+    data(){
+      return{
+        
+      }
+    },
     components: {
-        AppLogo
+      AppLogo
+    },
+    methods:{
+      themeLight(){
+        this.$store.dispatch('setTheme', 'light')
+      },
+      themeDark(){
+        this.$store.dispatch('setTheme', 'dark')
+      }
     }
 }
 </script>

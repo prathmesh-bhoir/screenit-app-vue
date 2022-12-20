@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="darkTheme=='dark' ? 'dark-mode' : ''">
     <router-view></router-view>
   </div>
 </template>
@@ -8,8 +8,36 @@
 
 export default {
   name: 'App',
+  data(){
+    return{
+      darkTheme: ''
+    }
+  },
   components: {
     
+  },
+  computed:{
+    getTheme(){
+      return this.$store.getters.theme;
+    }
+  },
+  watch:{
+    getTheme(){
+      console.log(this.darkTheme)
+      this.changeTheme();
+    }
+  },
+  created(){
+    // this.getSymbols();
+    this.changeTheme();
+  },
+  methods:{
+    async getSymbols(){
+      await this.$store.dispatch('getSymbols')
+    },
+    changeTheme(){
+      this.darkTheme = this.$store.getters.theme
+    }
   }
 }
 </script>

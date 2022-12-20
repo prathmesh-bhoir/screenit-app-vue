@@ -7,7 +7,7 @@
       <h2>
         Don't have an account?
       </h2>
-      
+      <router-link class="text-decoration-none" :to="{name: 'signup' }">Sign up</router-link>
     </div>
   </div>
 </template>

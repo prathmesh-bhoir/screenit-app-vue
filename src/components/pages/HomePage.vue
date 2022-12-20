@@ -7,6 +7,7 @@
                 <AppLogo />
             </div>
             <SearchComp />
+            {{symbols}}
         </section>
     </main>
     <AppFooter />
@@ -21,6 +22,14 @@ import AppFooter from '../AppFooter.vue'
 
 export default {
     name: 'HomePage',
+    data(){
+        return{
+            symbols: ''
+        }
+    },
+    created:{
+
+    },
     components: {
         AppLogo,
         AppMenu,
