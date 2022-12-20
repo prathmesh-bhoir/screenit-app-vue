@@ -45,7 +45,7 @@ export default {
 <style>
 @import url(./styles/normalize.css);
 
-body{
+html, body{
   background-color: #F2F4F8;
   color: black;
 }
@@ -56,6 +56,13 @@ body{
 }
 .dark-mode .my-container{
   background-color: #212531;
+}
+.dark-mode .home-section input{
+  background-color: #212531;
+}
+.dark-mode .my-nav input,
+.dark-mode .my-nav .login-btn{
+  background-color: #0F1017;
 }
 
 .my-container{

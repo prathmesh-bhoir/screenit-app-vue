@@ -1,8 +1,8 @@
 <template>
-  <div class="my-container my-nav">
-    <div class="container d-flex justify-content-between align-items-center">
+  <div class="my-container my-nav" :class="homePage ? 'homePageMenu' : ''">
+    <div class="container d-flex justify-content-between align-items-center" :class="homePage ? 'homePageMenu' : ''">
         <div class="d-flex align-items-center ">
-            <div class="logo">
+            <div class="logo" :class="homePage ? 'hide' : ''">
                 <AppLogo />
             </div>
             <div class="menu-items d-flex justify-content-around">
@@ -11,6 +11,19 @@
             </div>
         </div>
         <div class="d-flex align-items-center">
+            <div class="search-box d-flex" :class="homePage ? 'hide' : ''">
+                <div class="icons">
+                    <div class="cancel-icon text-secondary" v-if="showSearchBar">
+                        <font-awesome-icon icon="fa-solid fa-xmark" />
+                    </div>
+                    <div class="search-icon text-secondary" v-else>
+                        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+                    </div>
+                </div>
+                <div class="search" :class="showSearchBar ? '' : 'none'">
+                    <SearchComp />
+                </div>
+            </div>
             <div class="menu-items user-container">
                 <div>
                     <button @click="goLogin()" class="login-btn my-item my-container">
@@ -47,40 +60,88 @@
 
 <script>
 import AppLogo from './AppLogo.vue';
+import SearchComp from './SearchComp.vue';
 
 export default {
     name: 'AppMenu',
+    data(){
+        return{
+            homePage: false,
+            showSearchBar: true
+        }
+    },
     components: {
-        AppLogo
+        AppLogo,
+        SearchComp
+    },
+    computed:{
+        checkPage(){
+            return this.$route.path
+        }
+    },
+    watch:{
+        checkPage(){
+            this.homePageMenu()
+        }
+    },
+    created(){
+        this.homePageMenu()
     },
     methods:{
         goLogin(){
             this.$router.push('/login')
+        },
+        homePageMenu(){
+            if(this.$route.path == '/'){
+                this.homePage = true
+            }else{
+                this.homePage = false
+            }
         }
     }
 }
 </script>
 
 <style scoped>
+
+.homePageMenu{
+    height: 50px;
+    background-color: transparent;
+}
+.hide *{
+    display: none;
+}
 .logo{
     cursor: pointer;
-    font-size: 2.5em;
-    margin-right: 1em;
+    font-size: 1.5em;
+    margin-right: 0.5em;
 }
 
 .my-nav{
     position: fixed;
+    top: 0;
     width: 100vw;
 }
 .menu-items *{
     margin: 0 1em;
 }
 
+.search-box{
+    margin-right: 0.5em;
+    width: 300px;
+}
+.search{
+    width: 100%;
+}
+/* .search-box input{
+    background-color: inherit;
+} */
 .login-btn{
     border: 1px solid grey;
     color: inherit;
     border-radius: 5px;
     padding: 0.5em;
+    margin-left: 0;
 }
 .login-btn:hover{
     color: #625AFC;
@@ -109,5 +170,30 @@ export default {
     }
 }
 
+
+.icons{
+    display: none;
+    position: absolute;
+    font-size: large;
+    top: 30%;
+    right: 5%;
+}
+
+
+@media (max-width: 500px) {
+    .none{
+        display: none;
+    }
+    .icons{
+        display: block;
+    }
+    .search{
+        position:absolute;
+        width: auto;
+        top: 55px;
+        left: 5%;
+        right: 5%;
+    }
+}
 
 </style>

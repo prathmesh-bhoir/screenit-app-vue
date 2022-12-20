@@ -8,7 +8,7 @@
         <div class="info-section">
           <div class="info">
             <p class="bolder" style="font-size: 1.25em;">Stock analysis and screening tool</p>
-            <p class="text-secondary">Made with  in India.</p>
+            <p class="text-secondary">Made with &#10084; in India.</p>
           </div>
         </div>
         <div class="right-section d-flex justify-content-around">
@@ -68,10 +68,11 @@ export default {
 .app-footer{
   /* padding-top: 1em; */
   padding-bottom: 3em;
+  height: auto;
 }
 .logo{
   cursor: pointer;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .right-section{

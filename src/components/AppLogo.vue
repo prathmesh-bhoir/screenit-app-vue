@@ -1,5 +1,5 @@
 <template>
-  <strong>screenit</strong>
+  <router-link class="text-decoration-none logo" :to="{name: 'home' }"><strong>screenit</strong></router-link>
 </template>
 
 <script>
@@ -12,5 +12,9 @@ export default {
 <style scoped>
 strong{
     font-weight: 600;
+}
+
+.logo{
+  color: inherit;
 }
 </style>

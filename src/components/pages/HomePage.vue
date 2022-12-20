@@ -2,12 +2,16 @@
   <div>
     <AppMenu />
     <main>
-        <section class="d-flex flex-column justify-content-center align-items-center">
+        <section class="home-section d-flex flex-column justify-content-center align-items-center">
             <div class="main-logo">
                 <AppLogo />
             </div>
-            <SearchComp />
-            {{symbols}}
+            <div>
+                <p class="sub-header">Stock analysis and screening tool for investors in India.</p>
+            </div>
+            <div class="search-box">
+                <SearchComp />
+            </div>
         </section>
     </main>
     <AppFooter />
@@ -46,6 +50,36 @@ section{
 }
 
 .main-logo{
-    font-size: 5em;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 6em;
+}
+.sub-header{
+    font-size: 1.25em;
+}
+.search-box{
+    width: 40%;
+    margin-top: 1em;
+}
+
+
+
+@media (max-width: 992px) {
+    .search-box{
+        width: 60%;
+    }
+}
+
+@media (max-width: 500px) {
+    .search-box{
+        width: 80%;
+    }
+    .main-logo{
+        font-size: 4.5em;
+    }
+    .sub-header{
+        font-size: 0.9em;
+        margin-bottom: 0.5rem;
+    }
 }
 </style>
