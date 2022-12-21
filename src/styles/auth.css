@@ -1,0 +1,83 @@
+h3{
+    margin-bottom: 1em;
+}
+
+.auth-section{
+    height: 110vh;
+    padding-bottom: 2em;
+}
+
+.auth-container{
+    /* height: 60%; */
+    width: 60%;
+    border-radius: 5px;
+}
+
+.main-section{
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+.secondary-section{
+    padding-top: 1.75em;
+    padding-bottom: 1em;
+}
+
+.main-section form{
+    width: 85%;
+}
+.main-section input{
+    margin-bottom: 1.25em;
+    background-color: #F2F4F8;
+}
+.main-section label{
+    margin-bottom: 0.5em;
+}
+
+.secondary-section{
+    color: white;
+    background-color: crimson;
+}
+
+.secondary-section button{
+    background-color: crimson;
+    color: white;
+    border: 1px solid #fff;
+    border-radius: 80px;
+    padding: 0.5em 2em;
+}
+
+.submit-btn{
+    background-color: #625AFC;
+    border: none;
+    color: white;
+    border-radius: 80px;
+    padding: 0.5em 2em;   
+}
+
+
+@media (max-width: 992px) {
+    .auth-section{
+        height: 125vh !important;
+    }
+    .main-section{
+        border-radius: 5px 5px 0 0 !important;
+    }
+    .secondary-section{
+      border-radius: 75% 75% 5px 5px !important;
+    }
+    .icon{
+        left: 70% !important;
+    }
+}
+@media (max-width: 500px) {
+    .icon{
+        left: 67% !important;
+    }
+}
+
+
+.icon{
+    position: absolute;
+    padding-top: 6px;
+    cursor: pointer;
+}

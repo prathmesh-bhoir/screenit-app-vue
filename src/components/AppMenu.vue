@@ -166,7 +166,7 @@ export default {
 }
 
 .bottom-menu-item{
-    padding: 1em 0;
+    padding: 0.75em 0;
 }
 
 @media (max-width: 992px) {

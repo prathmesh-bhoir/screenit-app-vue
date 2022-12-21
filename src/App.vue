@@ -23,7 +23,6 @@ export default {
   },
   watch:{
     getTheme(){
-      console.log(this.darkTheme)
       this.changeTheme();
     }
   },
@@ -61,8 +60,16 @@ html, body{
   background-color: #212531;
 }
 .dark-mode .my-nav input,
+.dark-mode .auth-section input,
+.dark-mode .auth-section .submit-btn:hover,
 .dark-mode .my-nav .login-btn{
   background-color: #0F1017;
+}
+.dark-mode .auth-section input{
+  color: white;
+}
+.dark-mode .auth-section .submit-btn:hover{
+  border: 1px solid #625AFC;
 }
 
 .my-container{
