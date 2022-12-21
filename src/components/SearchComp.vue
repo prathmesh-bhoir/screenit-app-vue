@@ -1,31 +1,53 @@
 <template>
   <div>
-    <b-form @submit.prevent="screenit()">
+    <form @submit.prevent="screenit()">
       <div class="d-flex search-form">
         <div class="text-secondary search-icon">
           <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
         </div>
         <div class="search-box">
           <input class="search-input" type="text" placeholder="Search for a company"
-          v-model="searchFor">
+          v-model="form.searchFor"
+          @blur="$v.form.searchFor.$touch()"
+          >
+          <div v-if="$v.form.searchFor.$error">
+            <div class="text-danger" v-if="!$v.form.searchFor.required">
+            </div>
+          </div>
         </div>
-          <input class="submit" type="submit">
+        <input class="submit" type="submit">
       </div>
-    </b-form>
+    </form>
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators';
+
 export default {
     name: 'SearchComp',
     data(){
       return{
-        searchFor: ''
+        form: {
+          searchFor: ''
+        }
+      }
+    },
+    validations: {
+      form: {
+        searchFor: {
+          required
+        }
       }
     },
     methods:{
       screenit(){
-        this.$router.push({ name: 'screen', params: {name: this.searchFor}})
+        this.$v.form.$touch();
+        if( this.$v.form.$invalid ) {
+            return;
+        }else{
+          this.$router.push({ name: 'screen', params: {name: this.form.searchFor}})
+        }
       }
     }
     

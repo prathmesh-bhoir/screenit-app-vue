@@ -13,10 +13,10 @@
         <div class="d-flex align-items-center">
             <div class="search-box d-flex" :class="homePage ? 'hide' : ''">
                 <div class="icons">
-                    <div class="cancel-icon text-secondary" v-if="showSearchBar">
+                    <div @click="toggleSearchBar()" class="cancel-icon text-secondary pointer" v-if="showSearchBar">
                         <font-awesome-icon icon="fa-solid fa-xmark" />
                     </div>
-                    <div class="search-icon text-secondary" v-else>
+                    <div @click="toggleSearchBar()" class="search-icon text-secondary pointer" v-else>
                         <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
                     </div>
                 </div>
@@ -83,8 +83,9 @@ export default {
         checkPage(){
             this.homePageMenu()
         }
-    },
+    },  
     created(){
+        window.addEventListener('resize', this.checkScreen);
         this.homePageMenu()
     },
     methods:{
@@ -97,6 +98,14 @@ export default {
             }else{
                 this.homePage = false
             }
+        },
+        checkScreen(){
+            if(window.innerWidth >= 500){
+              this.showSearchBar = false
+            }
+        },
+        toggleSearchBar(){
+            this.showSearchBar = !this.showSearchBar
         }
     }
 }
@@ -178,7 +187,10 @@ export default {
     top: 30%;
     right: 5%;
 }
-
+/* .cancel-icon:hover,
+.search-icon:hover{
+    color: #625AFC;
+} */
 
 @media (max-width: 500px) {
     .none{
