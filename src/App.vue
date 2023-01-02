@@ -84,4 +84,8 @@ html, body{
 .pointer{
   cursor: pointer;
 }
+
+.grey{
+  color: grey;
+}
 </style>

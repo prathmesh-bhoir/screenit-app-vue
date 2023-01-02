@@ -46,7 +46,8 @@ export default {
         if( this.$v.form.$invalid ) {
             return;
         }else{
-          this.$router.push({ name: 'screen', params: {name: this.form.searchFor}})
+          this.$router.push({ name: 'screen', params: {name: this.form.searchFor.toLowerCase()}})
+          this.form.searchFor = ''
         }
       }
     }
