@@ -13,12 +13,23 @@
           <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
             <b-form-input
               id="input-1"
-          
+              v-model="form.email"
+              @blur="$v.form.email.$touch()"
               type="email"
               placeholder="enter email"
-              required
             ></b-form-input>
           </b-form-group>
+          <div v-if="$v.form.email.$error">
+            <div class="text-danger" v-if="!$v.form.email.required">
+              <small>The email is required</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.email.email">
+              <small>Invalid email address</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.email.maxLength">
+              <small>The email should not contain more than 30 characters</small>
+            </div>
+          </div>
 
           <b-form-group id="input-group-2" label="Password:" label-for="input-2" v-if="showPassword">
             <div class="d-flex">
@@ -27,7 +38,7 @@
                 type="text"
                 placeholder="enter password"
                 v-model="form.password"
-                required
+                @blur="$v.form.password.$touch()"
               ></b-form-input>
               <div @click="hidePass()" class="icon text-secondary">
                 <font-awesome-icon icon="fa-regular fa-eye" />
@@ -41,13 +52,18 @@
               type="password"
               placeholder="enter password"
               v-model="form.password"
-              required
+              @blur="$v.form.password.$touch()"
               ></b-form-input>
               <div @click="showPass()" class="icon text-secondary">
                 <font-awesome-icon icon="far fa-eye-slash" />
               </div>
             </div>
           </b-form-group>
+          <div v-if="$v.form.password.$error">
+            <div class="text-danger" v-if="!$v.form.password.required">
+              <small>The password is required</small>
+            </div>
+          </div>
 
           <div class="d-flex justify-content-center">
             <button class="submit-btn">Login</button>
@@ -68,6 +84,9 @@
 
 <script>
 import AppMenu from '../AppMenu.vue'
+// import Vue from 'vue';
+// import { login } from '@/services/auth';
+import { required, email, maxLength } from 'vuelidate/lib/validators';
 
 export default {
   name: 'LoginPage',
@@ -77,10 +96,23 @@ export default {
   data(){
     return{
       form:{
+        email: '',
         password: ''
       },
       showPassword: false
     }
+  },
+  validations: {
+      form: {
+        email: {
+          required,
+          email,
+          maxLength: maxLength(30)
+        },
+        password: {
+          required
+        }
+      }
   },
   methods:{
     hidePass(){

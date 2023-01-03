@@ -20,22 +20,41 @@
           <b-form-group id="input-group-3" label="Username:" label-for="input-3">
             <b-form-input
               id="input-3"
-          
+              v-model="form.name"
+              @blur="$v.form.name.$touch()"
               type="text"
               placeholder="enter username"
-              required
             ></b-form-input>
           </b-form-group>
+          <div v-if="$v.form.name.$error">
+            <div class="text-danger" v-if="!$v.form.name.required">
+              <small>The name is required</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.name.maxLength">
+              <small>The name should not contain more than 35 characters</small>
+            </div>
+          </div>
 
           <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
             <b-form-input
               id="input-1"
-          
+              v-model="form.email"
+              @blur="$v.form.email.$touch()"
               type="email"
               placeholder="enter email"
-              required
             ></b-form-input>
           </b-form-group>
+          <div v-if="$v.form.email.$error">
+            <div class="text-danger" v-if="!$v.form.email.required">
+              <small>The email is required</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.email.email">
+              <small>Invalid email address</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.email.maxLength">
+              <small>The email should not contain more than 30 characters</small>
+            </div>
+          </div>
 
           <b-form-group id="input-group-2" label="Password:" label-for="input-2" v-if="showPassword">
             <div class="d-flex">
@@ -44,7 +63,7 @@
                 type="text"
                 placeholder="enter password"
                 v-model="form.password"
-                required
+                @blur="$v.form.password.$touch()"
               ></b-form-input>
               <div @click="hidePass()" class="icon text-secondary">
                 <font-awesome-icon icon="fa-regular fa-eye" />
@@ -58,13 +77,36 @@
               type="password"
               placeholder="enter password"
               v-model="form.password"
-              required
+              @blur="$v.form.password.$touch()"
               ></b-form-input>
               <div @click="showPass()" class="icon text-secondary">
                 <font-awesome-icon icon="far fa-eye-slash" />
               </div>
             </div>
           </b-form-group>
+          <div v-if="$v.form.password.$error">
+            <div class="text-danger" v-if="!$v.form.password.required">
+              <small>The password is required</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.password.minLength">
+              <small>The password must have at least 8 characters</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.password.maxLength">
+              <small>The password should not contain more than 30 characters</small>
+            </div>
+            <div class="text-danger" v-else-if="!$v.form.password.containsUppercase">
+              <small>The password must have at least 1 uppercase character</small>
+            </div>
+            <div v-else-if="!$v.form.password.containsLowercase" class="text-danger">
+              <small>The password must have at least 1 lowercase character</small>
+            </div>
+            <div v-else-if="!$v.form.password.containsNumber" class="text-danger">
+              <small>The password must have at least 1 digit</small>
+            </div>
+            <div v-else-if="!$v.form.password.containsSpecial" class="text-danger">
+              <small>The password must have at least 1 special character</small>
+            </div>
+          </div>
 
           <div class="d-flex justify-content-center">
             <button class="submit-btn">Sign up</button>
@@ -77,8 +119,11 @@
   
 </template>
   
-  <script>
-  import AppMenu from '../AppMenu.vue'
+<script>
+import AppMenu from '../AppMenu.vue'
+// import Vue from 'vue';
+// import { register } from '@/services/auth';
+import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
 
   export default {
     name: 'SignupPage',
@@ -88,9 +133,41 @@
     data(){
       return{
         form:{
+          name: '',
+          email: '',
           password: ''
         },
         showPassword: false
+      }
+    },
+    validations: {
+      form: {
+        name: {
+          required,
+          maxLength: maxLength(35)
+        },
+        email: {
+          required,
+          email,
+          maxLength: maxLength(30),
+        },
+        password: {
+          required,
+          minLength: minLength(8),
+          maxLength: maxLength(16),
+          containsUppercase: function(value){
+            return /[A-Z]/.test(value)
+          },
+          containsLowercase: function(value){
+            return /[a-z]/.test(value)
+          },
+          containsNumber: function(value) {
+              return /[0-9]/.test(value)
+          },
+          containsSpecial: function(value) {
+              return /[@#$?!&*-^]/.test(value)
+          } 
+        }
       }
     },
     methods:{
