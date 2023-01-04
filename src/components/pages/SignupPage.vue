@@ -16,7 +16,7 @@
         <h3>
           Sign up
         </h3>
-        <b-form>
+        <b-form @submit.prevent="register">
           <b-form-group id="input-group-3" label="Username:" label-for="input-3">
             <b-form-input
               id="input-3"
@@ -121,8 +121,8 @@
   
 <script>
 import AppMenu from '../AppMenu.vue'
-// import Vue from 'vue';
-// import { register } from '@/services/auth';
+import Vue from 'vue';
+import { register } from '@/services/auth';
 import { required, email, minLength, maxLength } from 'vuelidate/lib/validators';
 
   export default {
@@ -176,6 +176,36 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
         },
         showPass(){
           this.showPassword = true
+        },
+        async register(){
+          this.$v.form.$touch();
+            if( this.$v.form.$invalid ) {
+              Vue.$toast.open({
+                type: 'error',
+                message: 'Please correct the errors and then try again!',
+                duration: 5000
+              })
+              return;
+            }
+
+          try {
+            await register(this.form)
+            this.$router.push({
+              name: 'login'
+            });
+            Vue.$toast.open({
+              type: 'success',
+              message: 'User created successfully! Login to continue.. ',
+              duration: 5000
+            })
+          } catch (error) {
+            Vue.$toast.open({
+                type: 'error',
+                message: error.response.data,
+                duration: 5000
+              })
+          }
+
         }
     }
   }
