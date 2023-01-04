@@ -12,6 +12,7 @@ const auth = {
         },
         getters: {
             userEmail: (state) => state.email,
+            userName: (state) => state.name
         },
         mutations: {
             setToken(state, token){

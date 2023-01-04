@@ -25,7 +25,13 @@
                 </div>
             </div>
             <div class="menu-items user-container">
-                <div>
+                <div v-if="isLogged">
+                    <button @click="logout()" class="login-btn my-item my-container">
+                        <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="fas fa-sign-out-alt" />
+                        LOGOUT
+                    </button>
+                </div>
+                <div v-else>
                     <button @click="goLogin()" class="login-btn my-item my-container">
                         <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="far fa-user"/>
                         LOGIN
@@ -45,7 +51,15 @@
                     </div>
                 </router-link>
             </div>
-            <div class="bottom-menu-item">
+            <div class="bottom-menu-item" @click.prevent="logout()" v-if="isLogged">
+                
+                    <div class="d-flex text-secondary flex-column">
+                        <font-awesome-icon icon="fas fa-sign-out-alt" />
+                        <div class="my-item">LOGOUT</div>
+                    </div>
+                
+            </div>
+            <div class="bottom-menu-item" v-else>
                 <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'login' }">
                     <div class="d-flex flex-column">
                         <font-awesome-icon icon="user-plus"/>
@@ -53,6 +67,7 @@
                     </div>
                 </router-link>
             </div>
+
         </div>
     </div>
   </div>
@@ -67,7 +82,9 @@ export default {
     data(){
         return{
             homePage: false,
-            showSearchBar: true
+            showSearchBar: true,
+            isLogged: false,
+            user: ''
         }
     },
     components: {
@@ -75,11 +92,17 @@ export default {
         SearchComp
     },
     computed:{
+        getUser() {
+            return this.$store.getters.userName;
+        },
         checkPage(){
             return this.$route.path
         }
     },
     watch:{
+        getUser(){
+            this.showUserName()
+        },
         checkPage(){
             this.homePageMenu()
         }
@@ -87,8 +110,15 @@ export default {
     created(){
         window.addEventListener('resize', this.checkScreen);
         this.homePageMenu()
+        this.showUserName()
     },
     methods:{
+        showUserName(){
+            this.name = this.$store.getters.userName
+            if(this.name){
+                this.isLogged = true
+            }
+        },
         goLogin(){
             this.$router.push('/login')
         },
@@ -106,6 +136,11 @@ export default {
         },
         toggleSearchBar(){
             this.showSearchBar = !this.showSearchBar
+        },
+        logout(){
+            localStorage.clear();
+            this.isLogged = false
+            this.$router.replace({name: 'home'});
         }
     }
 }
