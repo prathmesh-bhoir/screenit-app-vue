@@ -66,7 +66,7 @@
           </div>
 
           <div class="d-flex justify-content-center">
-            <button class="submit-btn">Login</button>
+            <button type="submit" class="submit-btn">Login</button>
           </div>
         </b-form>
       </div>

@@ -28,7 +28,7 @@ const auth = {
             async login({commit}, userDetails){
                 const data = await login(userDetails);
 
-                const { token, email, name} = data;
+                const { token, email, name} = data.data;
 
                 localStorage.setItem(KEY_TOKEN, token);
                 localStorage.setItem(KEY_EMAIL, email);
