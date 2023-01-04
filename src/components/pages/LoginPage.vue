@@ -9,7 +9,7 @@
         <h3>
           Login
         </h3>
-        <b-form>
+        <b-form @submit.prevent="login">
           <b-form-group id="input-group-1" label="Email address:" label-for="input-1">
             <b-form-input
               id="input-1"
@@ -83,9 +83,8 @@
 </template>
 
 <script>
-import AppMenu from '../AppMenu.vue'
-// import Vue from 'vue';
-// import { login } from '@/services/auth';
+import AppMenu from '../AppMenu.vue';
+import Vue from 'vue';
 import { required, email, maxLength } from 'vuelidate/lib/validators';
 
 export default {
@@ -120,6 +119,36 @@ export default {
     },
     showPass(){
       this.showPassword = true
+    },
+    async login(){
+      this.$v.form.$touch();
+      if (this.$v.form.$invalid) {
+        Vue.$toast.open({
+          type: 'error',
+          message: 'Please correct the errors and then try again!',
+          duration: 5000
+        })
+        return;
+      }
+
+      try {
+        await this.$store.dispatch('login', this.form)
+        this.$router.push({
+          name: 'home'
+        });
+        Vue.$toast.open({
+          type: 'success',
+          message: "User logged in successfully!",
+          duration: 5000
+        })
+
+      } catch (error) {
+        Vue.$toast.open({
+          type: 'error',
+          message: error.response.data,
+          duration: 5000
+        })
+      }
     }
   }
 }
