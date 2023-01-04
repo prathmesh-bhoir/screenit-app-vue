@@ -25,7 +25,11 @@
                 </div>
             </div>
             <div class="menu-items user-container">
-                <div v-if="isLogged">
+                <div v-if="isLogged" class="d-flex">
+                    <button class="user-name my-item my-container d-flex">
+                        <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="far fa-user"/>
+                        <div>{{ user.replace(/ +/g, "").toUpperCase() }}</div>
+                    </button>
                     <button @click="logout()" class="login-btn my-item my-container">
                         <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="fas fa-sign-out-alt" />
                         LOGOUT
@@ -51,9 +55,9 @@
                     </div>
                 </router-link>
             </div>
-            <div class="bottom-menu-item" @click.prevent="logout()" v-if="isLogged">
+            <div class="bottom-menu-item" v-if="isLogged">
                 
-                    <div class="d-flex text-secondary flex-column">
+                    <div @click="logout()" class="pointer d-flex text-secondary flex-column">
                         <font-awesome-icon icon="fas fa-sign-out-alt" />
                         <div class="my-item">LOGOUT</div>
                     </div>
@@ -92,7 +96,7 @@ export default {
         SearchComp
     },
     computed:{
-        getUser() {
+        checkUser(){
             return this.$store.getters.userName;
         },
         checkPage(){
@@ -100,8 +104,8 @@ export default {
         }
     },
     watch:{
-        getUser(){
-            this.showUserName()
+        checkUser(){
+            this.checkLogin()
         },
         checkPage(){
             this.homePageMenu()
@@ -109,14 +113,14 @@ export default {
     },  
     created(){
         window.addEventListener('resize', this.checkScreen);
-        this.homePageMenu()
-        this.showUserName()
+        this.homePageMenu();
+        this.checkLogin();
     },
     methods:{
-        showUserName(){
-            this.name = this.$store.getters.userName
-            if(this.name){
+        checkLogin(){
+            if(localStorage.getItem('name')){
                 this.isLogged = true
+                this.user = this.$store.getters.userName
             }
         },
         goLogin(){
@@ -139,7 +143,7 @@ export default {
         },
         logout(){
             localStorage.clear();
-            this.isLogged = false
+            this.isLogged = false;
             this.$router.replace({name: 'home'});
         }
     }
@@ -180,6 +184,7 @@ export default {
 /* .search-box input{
     background-color: inherit;
 } */
+.user-name,
 .login-btn{
     border: 1px solid grey;
     color: inherit;
@@ -189,6 +194,15 @@ export default {
 }
 .login-btn:hover{
     color: #625AFC;
+}
+.user-name{
+    max-width: 150px;
+    overflow: hidden;
+    box-sizing: border-box;
+    align-items: center;
+}
+.user-name div{
+    margin: 0 0 0 2px;
 }
 
 .bottom-menu{
