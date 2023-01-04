@@ -7,7 +7,7 @@
             </div>
             <div class="menu-items d-flex justify-content-around">
                 <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">HOME</router-link>
-                <div>WISHLIST</div>
+                <div>WATCHLIST</div>
             </div>
         </div>
         <div class="d-flex align-items-center">
@@ -30,7 +30,7 @@
                         <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="far fa-user"/>
                         <div>{{ user.replace(/ +/g, "").toUpperCase() }}</div>
                     </button>
-                    <button @click="logout()" class="login-btn my-item my-container">
+                    <button @click="logout()" class="login-btn my-item my-container d-flex align-items-center">
                         <font-awesome-icon style="color:#625AFC; margin: 0 0.2em;" icon="fas fa-sign-out-alt" />
                         LOGOUT
                     </button>
@@ -199,6 +199,7 @@ export default {
     max-width: 150px;
     overflow: hidden;
     box-sizing: border-box;
+    justify-content: center;
     align-items: center;
 }
 .user-name div{
@@ -220,7 +221,7 @@ export default {
 
 @media (max-width: 992px) {
     .menu-items *{
-        display: none;
+        display: none !important;
     }
 
     .bottom-menu{
