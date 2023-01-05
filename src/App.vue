@@ -88,4 +88,12 @@ html, body{
 .grey{
   color: grey;
 }
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
 </style>

@@ -7,8 +7,17 @@
         <section class="my-container main-screen">
             <section class="stock-container">
                 <div class="stock-headers">
-                    <h1 class="name">{{ searchedFor }}</h1>
-                    <p class="price">${{ stockDetails.c }}</p>
+                    <div>
+                        <h1 class="name">{{ searchedFor }}</h1>
+                        <div class="d-flex">
+                            <p class="price">${{ stockDetails.c }}</p>
+                            <span :class="positive ? 'green' : 'red'">
+                                <small v-if="positive"><font-awesome-icon icon="fa-solid fa-arrow-up" /></small>
+                                <small v-else><font-awesome-icon icon="fa-solid fa-arrow-down" /></small>
+                                <small class="pecrentage-change">{{ stockDetails.dp }}%</small>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="chart-container">
                     <StockChart />
@@ -33,6 +42,10 @@
                     <div>
                         <p class="grey">Previous Closing Price</p>
                         <p><span class="grey">$ </span>{{ stockDetails.pc }}</p>
+                    </div>
+                    <div>
+                        <p class="grey">Change</p>
+                        <p><span class="grey">$ </span>{{ stockDetails.d }}</p>
                     </div>
                 </section>
             </section>
@@ -65,7 +78,8 @@ export default {
         return{
             searchedFor: 'null',
             stockDetails: '',
-            valid: true
+            valid: true,
+            positive: false
         }
     },
     computed:{
@@ -96,6 +110,12 @@ export default {
             }else{
                 this.valid = false
             }
+
+            if(res.dp > 0){
+                this.positive = true
+            }else{
+                this.positive = false
+            }
         }
     }
 }
@@ -123,9 +143,14 @@ main{
 }
 .price{
     margin-bottom: 0;
+    margin-right: 10px;
+    font-size: 18px;
     font-weight: 500;
 }
-
+.pecrentage-change{
+    margin-left: 2.5px;
+    font-weight: 500;
+}
 .chart-container{
     margin-bottom: 1em;
 }
@@ -147,11 +172,19 @@ main{
     font-weight: 500;
 }
 
+.stock-details div:not(:last-child) {
+    border-bottom: 0.5px solid lightgrey;
+}
+.stock-details div:nth-last-child(2){
+    border: none;
+}
+
 @media (max-width: 992px) {
     .stock-details{
         grid-template-columns: 1fr;
     }
-    .stock-details div:not(:last-child){
+
+    .stock-details div:not(:last-child) {
         border-bottom: 0.5px solid lightgrey;
     }
 }
