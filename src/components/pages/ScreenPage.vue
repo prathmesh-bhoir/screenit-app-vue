@@ -6,7 +6,7 @@
     <main class="container">
         <section class="my-container main-screen">
             <section class="stock-container">
-                <div class="stock-headers">
+                <div class="stock-headers d-flex justify-content-between">
                     <div>
                         <h1 class="name">{{ searchedFor }}</h1>
                         <div class="d-flex">
@@ -17,6 +17,10 @@
                                 <small class="pecrentage-change">{{ stockDetails.dp }}%</small>
                             </span>
                         </div>
+                    </div>
+                    <div class="">
+                        <button v-if="addedToList" @click.prevent="remFromList()" class="remFromList-btn">- Remove from List</button>
+                        <button v-else @click.prevent="addToList()" class="addToList-btn">Add to Watchlist</button>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -65,7 +69,9 @@ import AppFooter from '../AppFooter.vue';
 import AppMenu from '../AppMenu.vue';
 import StockChart from '../StockChart.vue'
 
+import Vue from 'vue';
 import {getStock} from '../../services/stockDetails'
+import { addToList, delFromList } from '@/services/watchlist';
 
 export default {
     name: 'ScreenPage',
@@ -79,7 +85,9 @@ export default {
             searchedFor: 'null',
             stockDetails: '',
             valid: true,
-            positive: false
+            positive: false,
+            watchlist: '',
+            addedToList: false
         }
     },
     computed:{
@@ -94,11 +102,16 @@ export default {
     },  
     created(){
         this.getDetails();
-    },    
-    // mounted(){
-    //     this.getDetails();
-    // },  
+        this.checkWatchlist();
+    },     
     methods:{
+        async checkWatchlist(){
+            await this.$store.dispatch('getWatchlist')
+            this.watchlist = localStorage.getItem('watchlist').split(",")
+            if(this.watchlist.includes(this.searchedFor)){
+                this.addedToList = true
+            }
+        },
         async getDetails(){
             let stock = this.$route.params.name;
             this.searchedFor = stock.toUpperCase();
@@ -115,6 +128,50 @@ export default {
                 this.positive = true
             }else{
                 this.positive = false
+            }
+        },
+        async addToList(){
+            try {
+                const data = await addToList(this.searchedFor);
+
+                if(data){
+                    this.addedToList = true
+                }
+                this.checkWatchlist();
+
+                Vue.$toast.open({
+                type: 'success',
+                message: "Added to watchlist successfully!",
+                duration: 5000
+                })
+            } catch (error) {
+                Vue.$toast.open({
+                type: 'error',
+                message: error.response.data,
+                duration: 5000
+              })
+            }
+        },
+        async remFromList(){
+            try {
+                const data = await delFromList(this.searchedFor);
+
+                if(data){
+                    this.addedToList = false
+                }
+                this.checkWatchlist()
+
+                Vue.$toast.open({
+                type: 'success',
+                message: "Removed from watchlist!",
+                duration: 5000
+                })
+            } catch (error) {
+                Vue.$toast.open({
+                type: 'error',
+                message: error.response.data,
+                duration: 5000
+              })
             }
         }
     }
@@ -142,6 +199,29 @@ main{
 .name{
     margin: 0;
 }
+.addToList-btn{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.25em 0.75em 0.25em 0.75em;
+    background-color: #625AFC;
+    color: white;
+    
+}
+.remFromList-btn{
+    border: none;
+    border-radius: 5px;
+    padding: 0.25em 0.75em 0.25em 0.75em;
+    background-color: crimson;
+    color: white;
+}
+/* .remFromList-btn{
+    font-weight: 500;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: transparent;
+    padding: 0.25em 0.75em 0.25em 0.75em;
+    color: grey;
+} */
 .price{
     margin-bottom: 0;
     margin-right: 10px;
@@ -187,6 +267,18 @@ main{
 
     .stock-details div:not(:last-child) {
         border-bottom: 0.5px solid lightgrey;
+    }
+}
+@media (max-width: 400px) {
+    .stock-headers{
+        flex-direction: column;
+    }
+    .addToList-btn,
+    .remFromList-btn{
+        margin-top: 0.5em;
+    }
+    .stock-details{
+        font-size: 14px;
     }
 }
 </style>

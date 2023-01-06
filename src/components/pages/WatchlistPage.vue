@@ -31,7 +31,7 @@
                 </div>
                 <div v-for="(item, index) in watchlist" :key="item" class="d-flex">
                     <p>{{index+1}}</p>
-                    <p>{{item}}</p>
+                    <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link>
                     <p>{{stockDetails[index].c}}</p>
                     <div @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></div>
                 </div>
@@ -84,7 +84,6 @@ export default {
 
             this.watchlist.forEach(async(item) => {
                 const data = await getStock(item);
-                console.log(data)
                 this.stockDetails.push(data);
             })
 
@@ -131,7 +130,7 @@ export default {
 
                 Vue.$toast.open({
                 type: 'success',
-                message: "Removed from watchlist successfully!",
+                message: "Removed from watchlist!",
                 duration: 5000
                 })
             } catch (error) {

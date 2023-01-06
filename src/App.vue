@@ -79,7 +79,7 @@ html, body{
 
 
 .my-item:hover{
-  color: #625AFC;
+  color: #625AFC !important;
 }
 
 .pointer{
