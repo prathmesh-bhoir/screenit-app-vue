@@ -94,7 +94,7 @@ export default {
     data(){
         return{
             homePage: false,
-            showSearchBar: true,
+            showSearchBar: false,
             isLogged: false,
             user: ''
         }

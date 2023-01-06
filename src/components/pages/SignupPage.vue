@@ -13,7 +13,7 @@
           <router-link class="text-decoration-none auth-link" :to="{name: 'login' }"><button>Login</button></router-link>
       </div>
       <div class="main-section my-container container d-flex flex-column justify-content-center align-items-center">
-        <h3>
+        <h3 class="header-name">
           Sign up
         </h3>
         <b-form @submit.prevent="register">
@@ -227,6 +227,9 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
     border-radius: 5px 0 0 5px;
 }
 
+.header-name{
+  margin-bottom: 0;
+}
   .icon{
     right: 24%;
   }
