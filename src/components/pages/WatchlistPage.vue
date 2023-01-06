@@ -90,6 +90,10 @@ export default {
 
         },
         async addToList(){
+            this.$v.form.$touch();
+            if( this.$v.form.$invalid ) {
+                return;
+            }
             try {
                 const valid = await getStock(this.form.addThis)
                 if(!valid.c){

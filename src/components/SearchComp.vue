@@ -76,8 +76,8 @@ export default {
   visibility: hidden;
 } */
 .submit{
-  border: none;
-    border-radius: 5px;
+    border: none;
+    border-radius: 0 5px 5px 0;
     padding: 0.25em 0.75em 0.25em 0.75em;
     background-color: #625AFC;
     color: white;
@@ -100,7 +100,8 @@ export default {
   padding-left: 2.5em;
   color: inherit;
   border: 1px solid grey;
-  border-radius: 4px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
   width: 100%;
   height: 100%;
 }
