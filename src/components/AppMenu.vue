@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import AppLogo from './AppLogo.vue';
 import SearchComp from './SearchComp.vue';
 
@@ -153,6 +154,11 @@ export default {
             localStorage.clear();
             this.isLogged = false;
             this.$router.replace({name: 'home'});
+            Vue.$toast.open({
+              type: 'error',
+              message: "User logged out!",
+              duration: 5000
+            })
         }
     }
 }
