@@ -128,7 +128,8 @@ p{
 
 main{
     padding-top: 6em;
-    padding-bottom: 4em;
+    padding-bottom: 5em;
+    height: 100vh;
 }
 .main-screen{
     width: 100%;

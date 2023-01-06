@@ -6,7 +6,7 @@
           <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
         </div>
         <div class="search-box">
-          <input class="search-input" type="text" placeholder="Search for a company"
+          <input class="search-input" type="text" placeholder="Enter company's symbol"
           v-model="form.searchFor"
           @blur="$v.form.searchFor.$touch()"
           >
@@ -23,6 +23,8 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import Vue from 'vue';
+import { getStock } from '@/services/stockDetails';
 
 export default {
     name: 'SearchComp',
@@ -41,11 +43,21 @@ export default {
       }
     },
     methods:{
-      screenit(){
+      async screenit(){
         this.$v.form.$touch();
         if( this.$v.form.$invalid ) {
             return;
         }else{
+          const valid = await getStock(this.form.searchFor)
+          if (!valid.c) {
+            Vue.$toast.open({
+              type: 'error',
+              message: "Does not exist!",
+              duration: 5000
+            })
+            this.form.searchFor = ''
+            return;
+          }
           this.$router.push({ name: 'screen', params: {name: this.form.searchFor.toLowerCase()}})
           this.form.searchFor = ''
         }

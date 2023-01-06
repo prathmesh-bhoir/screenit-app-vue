@@ -72,7 +72,7 @@ export default {
 }
 .logo{
   cursor: pointer;
-  font-size: 1.5em;
+  font-size: 1.4em;
 }
 
 .right-section{

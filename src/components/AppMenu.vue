@@ -7,7 +7,7 @@
             </div>
             <div class="menu-items d-flex justify-content-around">
                 <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">HOME</router-link>
-                <div>WATCHLIST</div>
+                <router-link class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">WATCHLIST</router-link>
             </div>
         </div>
         <div class="d-flex align-items-center">
@@ -49,25 +49,33 @@
         <div class="bottom-menu-items container d-flex justify-content-between align-items-center">
             <div class="bottom-menu-item">
                 <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'home' }">
-                    <div class="d-flex flex-column">
+                    <div class="d-flex flex-column my-item">
                         <font-awesome-icon icon="fa-solid fa-house"/>
                         <div class="">HOME</div>
+                    </div>
+                </router-link>
+            </div>
+            <div class="bottom-menu-item">
+                <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'watchlist' }">
+                    <div class="d-flex flex-column my-item">
+                        <font-awesome-icon icon="fa-solid fa-list" />
+                        <div class="">WATCHLIST</div>
                     </div>
                 </router-link>
             </div>
             <div class="bottom-menu-item" v-if="isLogged">
                 
                     <div @click="logout()" class="pointer d-flex text-secondary flex-column">
-                        <font-awesome-icon icon="fas fa-sign-out-alt" />
+                        <font-awesome-icon icon="fas fa-sign-out-alt" class="my-item" />
                         <div class="my-item">LOGOUT</div>
                     </div>
                 
             </div>
             <div class="bottom-menu-item" v-else>
                 <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'login' }">
-                    <div class="d-flex flex-column">
+                    <div class="d-flex flex-column my-item">
                         <font-awesome-icon icon="user-plus"/>
-                        <div class="my-item">LOGIN</div>
+                        <div class="">LOGIN</div>
                     </div>
                 </router-link>
             </div>
