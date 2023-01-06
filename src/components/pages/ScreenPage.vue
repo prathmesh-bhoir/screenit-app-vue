@@ -214,14 +214,7 @@ main{
     background-color: crimson;
     color: white;
 }
-/* .remFromList-btn{
-    font-weight: 500;
-    border: 1px solid grey;
-    border-radius: 5px;
-    background-color: transparent;
-    padding: 0.25em 0.75em 0.25em 0.75em;
-    color: grey;
-} */
+
 .price{
     margin-bottom: 0;
     margin-right: 10px;
