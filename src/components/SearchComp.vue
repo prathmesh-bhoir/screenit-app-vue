@@ -10,12 +10,12 @@
           v-model="form.searchFor"
           @blur="$v.form.searchFor.$touch()"
           >
-          <div v-if="$v.form.searchFor.$error">
+          <div class="input-error" v-if="$v.form.searchFor.$error">
             <div class="text-danger" v-if="!$v.form.searchFor.required">
             </div>
           </div>
         </div>
-        <input class="submit" type="submit">
+        <button class="submit" type="submit">Search</button>
       </div>
     </form>
   </div>
@@ -68,10 +68,19 @@ export default {
 </script>
 
 <style scoped>
-
-.submit{
+.input-error{
+  position: absolute;
+}
+/* .submit{
   position:absolute;
   visibility: hidden;
+} */
+.submit{
+  border: none;
+    border-radius: 5px;
+    padding: 0.25em 0.75em 0.25em 0.75em;
+    background-color: #625AFC;
+    color: white;
 }
 
 .search-icon{

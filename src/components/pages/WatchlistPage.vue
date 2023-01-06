@@ -3,21 +3,25 @@
     <AppMenu />
     <main class="container">
         <section class="my-container watchlist-screen">
-            <div class="d-sm-flex">
-                <h1 class="header-name">Watchlist</h1>
-                <form @submit.prevent="addToList()">
-                    <div class="search-box d-flex">
-                        <input class="search-input" type="text" placeholder="Add to Watchlist" 
-                            v-model="form.addThis"
-                            @blur="$v.form.addThis.$touch()">
-                        <div v-if="$v.form.addThis.$error">
-                            <div class="text-danger" v-if="!$v.form.addThis.required">
+            <div class="header-section d-flex justify-content-between align-items-center ">
+                <div>
+                    <h1 class="header-name">Watchlist</h1>
+                </div>
+                <div>
+                    <form @submit.prevent="addToList()">
+                        <div class="search-box">
+                            <input class="search-input" type="text" placeholder="Add to Watchlist" 
+                                v-model="form.addThis"
+                                @blur="$v.form.addThis.$touch()">
+                            <div class="input-error" v-if="$v.form.addThis.$error">
+                                <div class="text-danger" v-if="!$v.form.addThis.required">
+                                </div>
                             </div>
-                        </div>
-
-                        <button type="submit">Add</button>
-                        </div>
-                </form>
+    
+                            <button type="submit" class="addToList-btn">Add</button>
+                            </div>
+                    </form>
+                </div>
             </div>
             <div class="watchlist">
                 <div class="d-flex">
@@ -29,7 +33,7 @@
                     <p>{{index+1}}</p>
                     <p>{{item}}</p>
                     <p>{{stockDetails[index].c}}</p>
-                    <div @click.prevent="delFromList(item)" class="pointer"><font-awesome-icon icon="fa-solid fa-trash" /></div>
+                    <div @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></div>
                 </div>
             </div>
         </section>
@@ -156,5 +160,39 @@ main{
 }
 .watchlist{
     padding-top: 1em;
+}
+.search-input{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: transparent;
+    color: inherit;
+    padding: 0.25em;
+    margin-right: 1em;
+}
+.addToList-btn{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.25em 0.75em 0.25em 0.75em;
+    background-color: #625AFC;
+    color: white;
+}
+
+.input-error{
+    position: absolute;
+}
+
+
+@media (max-width: 575px)  {
+    .header-section{
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    .header-section div{
+        width: 100%;
+    }
+    .header-name{
+        margin-bottom: 0.5em;
+    }
 }
 </style>

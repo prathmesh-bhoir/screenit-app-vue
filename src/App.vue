@@ -62,7 +62,8 @@ html, body{
 .dark-mode .my-nav input,
 .dark-mode .auth-section input,
 .dark-mode .auth-section .submit-btn:hover,
-.dark-mode .my-nav .login-btn{
+.dark-mode .my-nav .login-btn
+{
   background-color: #0F1017;
 }
 .dark-mode .auth-section input{
