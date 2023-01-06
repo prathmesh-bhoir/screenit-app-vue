@@ -12,9 +12,10 @@
           </div>
         </div>
         <div class="right-section d-flex justify-content-around">
-          <div>
+          <div class="d-flex flex-column">
             <p class="bolder">Product</p>
             <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">Home</router-link>
+            <router-link class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">Watchlist</router-link>
           </div>
           <div>
             <p class="bolder">Team</p>
