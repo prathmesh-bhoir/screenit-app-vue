@@ -87,9 +87,9 @@ export default {
       }
     },
     computed:{
-    getTheme(){
-      return this.$store.getters.theme;
-    }
+        getTheme(){
+        return this.$store.getters.theme;
+        }
     },
     watch: {
         getTheme() {
@@ -179,7 +179,7 @@ export default {
 main{
     padding-top: 6em;
     padding-bottom: 5em;
-    height: 100vh;
+    min-height: 70vh;
 }
 
 .watchlist-screen{

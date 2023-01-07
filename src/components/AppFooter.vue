@@ -7,8 +7,9 @@
       <section class="d-flex footer-section justify-content-between">
         <div class="info-section">
           <div class="info">
-            <p class="bolder" style="font-size: 1.25em;">Stock analysis and screening tool</p>
+            <p class="bolder" style="font-size: 1.20em;">Stock analysis and screening tool</p>
             <p class="text-secondary">Made with &#10084; in India.</p>
+            <p class="text-secondary">Data provided by Finnhub.io</p>
           </div>
         </div>
         <div class="right-section d-flex justify-content-around">
@@ -96,13 +97,13 @@ export default {
   font-weight: 500;
 }
 .app-footer{
-  /* padding-top: 1em; */
-  padding-bottom: 3em;
-  /* height: auto; */
+  padding-top: 1em;
+  padding-bottom: 5em;
 }
 .logo{
   cursor: pointer;
   font-size: 1.4em;
+  font-weight: 450 !important;
 }
 
 .right-section{
@@ -119,7 +120,7 @@ p{
   }
   .info-section{
     padding-top: 1em;
-    border-top: 1px solid lightgrey;
+    border-top: 1px solid grey;
   }
 
   .right-section{

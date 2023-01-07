@@ -98,6 +98,10 @@ html, body{
   color: red !important;
 }
 
+main section.my-container{
+  
+}
+
 @media (max-width: 992px) {
   
 }

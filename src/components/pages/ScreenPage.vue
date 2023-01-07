@@ -211,13 +211,12 @@ p{
 
 main{
     padding-top: 6em;
-    padding-bottom: 5em;
-    height: 100vh;
+    padding-bottom: 6em;
 }
 .main-screen{
     width: 100%;
     border-radius: 10px;
-    padding: 1em 1em 2em 1em;
+    padding: 1em 1em 3em 1em;
 }
 .stock-headers{
     margin-bottom: 1em;
