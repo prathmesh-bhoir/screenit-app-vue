@@ -95,6 +95,6 @@ html, body{
 }
 
 .red{
-  color: red;
+  color: red !important;
 }
 </style>

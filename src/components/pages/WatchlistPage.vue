@@ -25,7 +25,7 @@
             </div>
             <div class="watchlist">
                 
-                <table class="table table-striped table-bordered">
+                <table class="watchlist-table table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Sr.No</th>
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item, index) in watchlist" :key="item">
-                            <td>{{ index }}</td>
+                            <td>{{ index+1 }}</td>
                             <td><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link></td>
                             <td>{{stockDetails[index].c}}</td>
                             <td @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></td>
@@ -98,7 +98,9 @@ export default {
 
             this.watchlist.forEach(async(item) => {
                 const data = await getStock(item);
+                data.push({"name": item})
                 this.stockDetails.push(data);
+                console.log(this.stockDetails)
             })
 
         },
@@ -197,6 +199,11 @@ main{
 
 .input-error{
     position: absolute;
+}
+
+.watchlist-table{
+    margin-top: 1em;
+    color: inherit;
 }
 
 
