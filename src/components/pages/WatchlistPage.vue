@@ -24,17 +24,31 @@
                 </div>
             </div>
             <div class="watchlist">
-                <div class="d-flex">
-                    <p>Sr.No.</p>
-                    <p>Name</p>
-                    <p>Current Price</p>
-                </div>
-                <div v-for="(item, index) in watchlist" :key="item" class="d-flex">
+                
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Company</th>
+                            <th>Current Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in watchlist" :key="item">
+                            <td>{{ index }}</td>
+                            <td><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link></td>
+                            <td>{{stockDetails[index].c}}</td>
+                            <td @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <div v-for="(item, index) in watchlist" :key="item" class="d-flex">
                     <p>{{index+1}}</p>
                     <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link>
                     <p>{{stockDetails[index].c}}</p>
                     <div @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></div>
-                </div>
+                </div> -->
             </div>
         </section>
     </main>
@@ -55,7 +69,7 @@ export default {
     name: 'WatchlistPage',
     components: {
         AppMenu,
-        AppFooter
+        AppFooter,
     },
     data(){
         return {
