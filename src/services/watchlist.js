@@ -2,13 +2,21 @@ import axios from "axios";
 import { BASE_URL, TOKEN } from "./utils/config";
 
 export const getWatchlist = async () => {
-    const response = await axios.get(`${BASE_URL}/watchlist`,
-    { headers: 
-        { 
-        Authorization: TOKEN,
-        } 
-    }
-    );
+    const req = {
+        method: 'get',
+        url: `${BASE_URL}/watchlist`,
+        headers: {
+            Authorization: TOKEN,
+        },
+    };
+    const response = await axios(req);
+    // const response = await axios.get(`${BASE_URL}/watchlist`,
+    // { headers: 
+    //     { 
+    //     Authorization: TOKEN,
+    //     } 
+    // }
+    // );
 
     return response.data;
 }
