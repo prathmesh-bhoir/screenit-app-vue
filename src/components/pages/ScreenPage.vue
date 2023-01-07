@@ -18,9 +18,12 @@
                             </span>
                         </div>
                     </div>
-                    <div class="">
+                    <div v-if="isLogged" class="">
                         <button v-if="addedToList" @click.prevent="remFromList()" class="remFromList-btn">- Remove from List</button>
                         <button v-else @click.prevent="addToList()" class="addToList-btn">Add to Watchlist</button>
+                    </div>
+                    <div v-else>
+                        <button @click.prevent="unauthorized()" class="addToList-btn">Add to Watchlist</button>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -87,29 +90,44 @@ export default {
             valid: true,
             positive: false,
             watchlist: '',
-            addedToList: false
+            addedToList: false,
+            isLogged: false
         }
     },
     computed:{
         checkPage(){
             return this.$route.path
+        },
+        checkUser(){
+            return localStorage.getItem('name')
         }
     },
     watch:{
         checkPage(){
             this.getDetails()
+        },
+        checkUser(){
+            this.userStatus()
         }
     },  
     created(){
         this.getDetails();
         this.checkWatchlist();
+        this.userStatus()
     },     
     methods:{
+        userStatus(){
+            if(localStorage.getItem('name')){
+                this.isLogged = true
+            }
+        },
         async checkWatchlist(){
-            await this.$store.dispatch('getWatchlist')
-            this.watchlist = localStorage.getItem('watchlist').split(",")
-            if(this.watchlist.includes(this.searchedFor)){
-                this.addedToList = true
+            if(localStorage.getItem('name')){
+                await this.$store.dispatch('getWatchlist')
+                this.watchlist = localStorage.getItem('watchlist').split(",")
+                if(this.watchlist.includes(this.searchedFor)){
+                    this.addedToList = true
+                }
             }
         },
         async getDetails(){
@@ -173,7 +191,15 @@ export default {
                 duration: 5000
               })
             }
-        }
+        },
+        unauthorized(){
+            this.$router.replace({name: 'login'});
+            Vue.$toast.open({
+                type: 'error',
+                message: `Loggin to use Watchlist!`,
+                duration: 5000
+            })
+      }
     }
 }
 </script>

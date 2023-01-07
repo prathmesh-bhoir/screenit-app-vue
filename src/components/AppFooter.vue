@@ -15,7 +15,8 @@
           <div class="d-flex flex-column">
             <p class="bolder">Product</p>
             <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">Home</router-link>
-            <router-link class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">Watchlist</router-link>
+            <router-link v-if="isLogged" class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">Watchlist</router-link>
+            <div @click="unauthorized()" v-else  class="text-secondary pointer">Watchlist</div>
           </div>
           <div>
             <p class="bolder">Team</p>
@@ -41,22 +42,50 @@
 <script>
 import AppLogo from './AppLogo.vue';
 
+import Vue from 'vue';
+
 export default {
     name: 'AppFooter',
     data(){
       return{
-        
+        isLogged: false
       }
     },
     components: {
       AppLogo
     },
+    computed:{
+      checkUser(){
+        return localStorage.getItem('name')
+      }
+    },
+    watch:{
+      checkUser(){
+        this.userStatus()
+      }
+    },
+    created(){
+      this.userStatus()
+    },
     methods:{
+      userStatus(){
+        if(localStorage.getItem('name')){
+          this.isLogged = true
+        }
+      },
       themeLight(){
         this.$store.dispatch('setTheme', 'light')
       },
       themeDark(){
         this.$store.dispatch('setTheme', 'dark')
+      },
+      unauthorized(){
+        this.$router.replace({name: 'login'});
+        Vue.$toast.open({
+          type: 'error',
+          message: `Loggin to use Watchlist!`,
+          duration: 5000
+        })
       }
     }
 }
@@ -69,7 +98,7 @@ export default {
 .app-footer{
   /* padding-top: 1em; */
   padding-bottom: 3em;
-  height: auto;
+  /* height: auto; */
 }
 .logo{
   cursor: pointer;

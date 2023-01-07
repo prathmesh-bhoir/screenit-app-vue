@@ -7,7 +7,8 @@
             </div>
             <div class="menu-items d-flex justify-content-around">
                 <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">HOME</router-link>
-                <router-link class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">WATCHLIST</router-link>
+                <router-link v-if="isLogged" class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">Watchlist</router-link>
+                <div @click="unauthorized()" v-else  class="text-secondary pointer">Watchlist</div>
             </div>
         </div>
         <div class="d-flex align-items-center">
@@ -56,12 +57,18 @@
                 </router-link>
             </div>
             <div class="bottom-menu-item">
-                <router-link class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'watchlist' }">
+                <router-link v-if="isLogged" class="text-decoration-none text-secondary font-weight-bolder" :to="{name: 'watchlist' }">
                     <div class="d-flex flex-column my-item">
                         <font-awesome-icon icon="fa-solid fa-list" />
                         <div class="">WATCHLIST</div>
                     </div>
                 </router-link>
+                <div v-else class="text-secondary pointer" @click="unauthorized()">
+                    <div class="d-flex flex-column my-item">
+                        <font-awesome-icon icon="fa-solid fa-list" />
+                        <div class="">WATCHLIST</div>
+                    </div>
+                </div>
             </div>
             <div class="bottom-menu-item" v-if="isLogged">
                 
@@ -159,7 +166,15 @@ export default {
               message: "User logged out!",
               duration: 5000
             })
-        }
+        },
+        unauthorized(){
+            this.$router.replace({name: 'login'});
+            Vue.$toast.open({
+            type: 'error',
+            message: `Loggin to use Watchlist!`,
+            duration: 5000
+            })
+      }
     }
 }
 </script>
