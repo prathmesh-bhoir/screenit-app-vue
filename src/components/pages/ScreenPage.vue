@@ -165,7 +165,7 @@ export default {
             } catch (error) {
                 Vue.$toast.open({
                 type: 'error',
-                message: error.response.data,
+                message: error.response.data.message,
                 duration: 5000
               })
             }
@@ -180,7 +180,7 @@ export default {
                 this.checkWatchlist()
 
                 Vue.$toast.open({
-                type: 'success',
+                type: 'warning',
                 message: "Removed from watchlist!",
                 duration: 5000
                 })

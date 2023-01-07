@@ -7,8 +7,8 @@
             </div>
             <div class="menu-items d-flex justify-content-around">
                 <router-link class="text-decoration-none text-secondary" :to="{name: 'home' }">HOME</router-link>
-                <router-link v-if="isLogged" class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">Watchlist</router-link>
-                <div @click="unauthorized()" v-else  class="text-secondary pointer">Watchlist</div>
+                <router-link v-if="isLogged" class="text-decoration-none text-secondary" :to="{name: 'watchlist' }">WATCHLIST</router-link>
+                <div @click="unauthorized()" v-else  class="text-secondary pointer">WATCHLIST</div>
             </div>
         </div>
         <div class="d-flex align-items-center">

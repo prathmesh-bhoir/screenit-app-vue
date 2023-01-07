@@ -28,22 +28,22 @@
                 <table class="watchlist-table table table-bordered" :class="theme=='light' ? 'table-striped' : ''">
                     <thead>
                         <tr>
-                            <th>Sr.No</th>
-                            <th>Company</th>
-                            <th>Current Price</th>
-                            <th>Opening Price</th>
-                            <th>Previous Closing Price</th>
+                            <th class="text-center">Sr.No</th>
+                            <th class="text-center">Company</th>
+                            <th class="text-end">Current Price</th>
+                            <th class="text-end">Opening Price</th>
+                            <th class="text-end">Previous Closing Price</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>                       
                         <tr v-for="(item, index) in watchlist" :key="item">
-                            <td>{{ index+1 }}</td>
-                            <td><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link></td>
-                            <td>$ {{stockDetails[index].c}}</td>
-                            <td>$ {{stockDetails[index].o}}</td>
-                            <td>$ {{stockDetails[index].pc}}</td>
-                            <td @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></td>
+                            <td class="text-center">{{ index+1 }}</td>
+                            <td class="text-center"><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link></td>
+                            <td class="text-end">$ {{stockDetails[index].c}}</td>
+                            <td class="text-end">$ {{stockDetails[index].o}}</td>
+                            <td class="text-end">$ {{stockDetails[index].pc}}</td>
+                            <td @click.prevent="delFromList(item)" class="pointer red text-center"><font-awesome-icon icon="fa-solid fa-trash" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -154,7 +154,7 @@ export default {
                 this.getWatchlist()
 
                 Vue.$toast.open({
-                type: 'success',
+                type: 'warning',
                 message: "Removed from watchlist!",
                 duration: 5000
                 })
@@ -192,6 +192,14 @@ main{
 .watchlist{
     padding-top: 1em;
 }
+.watchlist-table{
+    margin-top: 1em;
+    color: inherit;
+}
+.watchlist-table th.text-end,
+.watchlist-table td.text-end{
+    padding-right: 1em;
+}
 .search-input{
     outline: none;
     border: none;
@@ -201,6 +209,7 @@ main{
     padding: 0.25em;
     margin-right: 1em;
 }
+
 .addToList-btn{
     border: 1px solid black;
     border-radius: 5px;
@@ -211,11 +220,6 @@ main{
 
 .input-error{
     position: absolute;
-}
-
-.watchlist-table{
-    margin-top: 1em;
-    color: inherit;
 }
 
 @media (max-width: 992px)  {

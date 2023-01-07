@@ -97,4 +97,8 @@ html, body{
 .red{
   color: red !important;
 }
+
+@media (max-width: 992px) {
+  
+}
 </style>
