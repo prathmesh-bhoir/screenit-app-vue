@@ -99,7 +99,9 @@ html, body{
 }
 
 main section.my-container{
-  
+  box-shadow: 0 10px 25px rgb(0 0 0 / 5%),
+        0 20px 48px rgb(0 0 0 / 5%),
+        0 1px 4px rgb(0 0 0 / 10%);
 }
 
 @media (max-width: 992px) {
