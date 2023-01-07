@@ -23,32 +23,30 @@
                     </form>
                 </div>
             </div>
-            <div class="watchlist">
+            <div class="watchlist container">
                 
-                <table class="watchlist-table table table-striped table-bordered">
+                <table class="watchlist-table table table-bordered" :class="theme=='light' ? 'table-striped' : ''">
                     <thead>
                         <tr>
                             <th>Sr.No</th>
                             <th>Company</th>
                             <th>Current Price</th>
+                            <th>Opening Price</th>
+                            <th>Previous Closing Price</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>                       
                         <tr v-for="(item, index) in watchlist" :key="item">
                             <td>{{ index+1 }}</td>
                             <td><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link></td>
-                            <td>{{stockDetails[index].c}}</td>
+                            <td>$ {{stockDetails[index].c}}</td>
+                            <td>$ {{stockDetails[index].o}}</td>
+                            <td>$ {{stockDetails[index].pc}}</td>
                             <td @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></td>
                         </tr>
                     </tbody>
                 </table>
-                <!-- <div v-for="(item, index) in watchlist" :key="item" class="d-flex">
-                    <p>{{index+1}}</p>
-                    <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link>
-                    <p>{{stockDetails[index].c}}</p>
-                    <div @click.prevent="delFromList(item)" class="pointer red"><font-awesome-icon icon="fa-solid fa-trash" /></div>
-                </div> -->
             </div>
         </section>
     </main>
@@ -62,7 +60,7 @@ import AppFooter from '../AppFooter.vue';
 
 import Vue from 'vue';
 import { getStock } from '@/services/stockDetails';
-import {getWatchlist, addToList, delFromList } from '@/services/watchlist';
+import { addToList, delFromList } from '@/services/watchlist';
 import { required } from 'vuelidate/lib/validators';
 
 export default {
@@ -77,7 +75,8 @@ export default {
                 addThis: ''
             },
             watchlist: '',
-            stockDetails: []
+            stockDetails: [],
+            theme: ''
         }
     },
     validations: {
@@ -87,20 +86,30 @@ export default {
         }
       }
     },
+    computed:{
+    getTheme(){
+      return this.$store.getters.theme;
+    }
+    },
+    watch: {
+        getTheme() {
+            this.changeTheme();
+        }
+    },
     created(){
+        this.changeTheme()
         this.getWatchlist()
     },
     methods: {
         async getWatchlist(){
-            const response = await getWatchlist();
+            const response = await this.$store.dispatch('getWatchlist');
 
-            this.watchlist = response.data
+            this.watchlist = response
 
             this.watchlist.forEach(async(item) => {
                 const data = await getStock(item);
-                data.push({"name": item})
+                data["name"] = item
                 this.stockDetails.push(data);
-                console.log(this.stockDetails)
             })
 
         },
@@ -156,6 +165,9 @@ export default {
                 duration: 5000
               })
             }
+        },
+        changeTheme(){
+            this.theme = this.$store.getters.theme
         }
     }
     
@@ -206,6 +218,12 @@ main{
     color: inherit;
 }
 
+@media (max-width: 992px)  {
+    .watchlist{
+        overflow-x: scroll;
+        white-space:nowrap;
+    }
+}
 
 @media (max-width: 575px)  {
     .header-section{

@@ -23,6 +23,8 @@ const watchlist = {
             localStorage.setItem(KEY_WATCHLIST, watchlist)
 
             commit('setWatchlist', watchlist);
+
+            return watchlist
         }
     }
 }
