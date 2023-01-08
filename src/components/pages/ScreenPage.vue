@@ -129,7 +129,10 @@ export default {
         this.getDetails();
         this.checkWatchlist();
         this.userStatus()
-    },     
+    },  
+    mounted(){
+        document.title =  this.$route.params.name + ' - Screenit-App'
+    }, 
     methods:{
         userStatus(){
             if(localStorage.getItem('name')){
@@ -150,7 +153,7 @@ export default {
             this.searchedFor = stock.toUpperCase();
             let res = await getStock(stock.toUpperCase());
             let profile = await getProfile(stock.toUpperCase());
-            console.log(profile)
+            
             if(res.dp){
                 this.stockProfile = profile 
                 this.stockDetails = res;

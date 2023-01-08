@@ -24,7 +24,13 @@ export default {
   watch:{
     getTheme(){
       this.changeTheme();
-    }
+    },
+    $route: {
+      immediate: true,
+      handler(to) {
+        document.title = to.meta.title || 'Screenit-App';
+      }
+    },
   },
   created(){
     // this.getSymbols();
