@@ -20,10 +20,10 @@
                             </div>
                         </div>
                         <div class="link-and-symbol d-flex flex-wrap">
-                            <router-link class="text-decoration-none d-flex align-items-center" :to="{ path: stockProfile.weburl }">
+                            <a class="text-decoration-none d-flex align-items-center" :href="stockProfile.weburl" target="_blank">
                                 <font-awesome-icon icon="fa-solid fa-link" />
                                 <p class="stock-link">{{ stockProfile.weburl.slice(12,-1) }}</p>
-                            </router-link>
+                            </a>
                             <p class="symbol">NASDAQ: {{ searchedFor }}</p>
                         </div>
                     </div>
