@@ -6,11 +6,39 @@
             <div class="main-logo">
                 <AppLogo />
             </div>
-            <div>
+            <div class="d-flex justify-content-center flex-wrap">
                 <p class="sub-header">Stock analysis and screening tool for investors in India.</p>
             </div>
             <div class="search-box">
                 <SearchComp />
+            </div>
+            <div class="d-flex flex-wrap justify-content-center container">
+                <div>
+                    <p class="mr-right text-secondary">Or view:</p>
+                </div>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'AAPL'}}">Apple</router-link>
+                    </p>
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'TSLA'}}">Tesla</router-link>
+                    </p>
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'IBM'}}">IBM</router-link>
+                    </p>
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'META'}}">Meta</router-link>
+                    </p>
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'MSFT'}}">Microsoft</router-link>
+                    </p>
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'NKE'}}">Nike</router-link>
+                    </p>
+                    <p class="view-item">
+                        <router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: 'AMZN'}}">Amazon</router-link>
+                    </p>
+                </div>
             </div>
         </section>
     </main>
@@ -60,18 +88,29 @@ section{
 .search-box{
     width: 40%;
     margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.mr-right{
+    margin-right: 0.5em;
+}
+
+.view-item{
+    margin-right: 0.5em;
 }
 
 
 
 @media (max-width: 992px) {
-    .search-box{
+    .search-box,
+    .view-stocks-section{
         width: 60%;
     }
 }
 
 @media (max-width: 500px) {
-    .search-box{
+    .search-box,
+    .view-stocks-section{
         width: 80%;
     }
     .main-logo{
@@ -81,5 +120,11 @@ section{
         font-size: 0.9em;
         margin-bottom: 0.5rem;
     }
+
+    .mr-right,
+    .view-item{
+        font-size: 0.9em;
+    }
+
 }
 </style>
