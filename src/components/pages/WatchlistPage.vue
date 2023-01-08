@@ -23,8 +23,7 @@
                     </form>
                 </div>
             </div>
-            <div class="watchlist container">
-                
+            <div class="watchlist container">                
                 <table class="watchlist-table table table-bordered" :class="theme=='light' ? 'table-striped' : ''">
                     <thead>
                         <tr>
@@ -37,13 +36,13 @@
                         </tr>
                     </thead>
                     <tbody>                       
-                        <tr v-for="(item, index) in watchlist" :key="item">
+                        <tr v-for="(stockDetail, index) in stockDetails" :key="stockDetail.name">
                             <td class="text-center">{{ index+1 }}</td>
-                            <td class="text-center"><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: item}}">{{item}}</router-link></td>
-                            <td class="text-end">$ {{stockDetails[index].c}}</td>
-                            <td class="text-end">$ {{stockDetails[index].o}}</td>
-                            <td class="text-end">$ {{stockDetails[index].pc}}</td>
-                            <td @click.prevent="delFromList(item)" class="pointer red text-center"><font-awesome-icon icon="fa-solid fa-trash" /></td>
+                            <td class="text-center"><router-link class="text-decoration-none" :to="{ name: 'screen', params: {name: stockDetail.name}}">{{ stockProfile[index].name }}</router-link></td>
+                            <td class="text-end">$ {{stockDetail.c}}</td>
+                            <td class="text-end">$ {{stockDetail.o}}</td>
+                            <td class="text-end">$ {{stockDetail.pc}}</td>
+                            <td @click.prevent="delFromList(stockDetail.name)" class="pointer red text-center"><font-awesome-icon icon="fa-solid fa-trash" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -62,6 +61,7 @@ import Vue from 'vue';
 import { getStock } from '@/services/stockDetails';
 import { addToList, delFromList } from '@/services/watchlist';
 import { required } from 'vuelidate/lib/validators';
+import { getProfile } from '../../services/stockDetails';
 
 export default {
     name: 'WatchlistPage',
@@ -74,8 +74,8 @@ export default {
             form: {
                 addThis: ''
             },
-            watchlist: '',
             stockDetails: [],
+            stockProfile: [],
             theme: ''
         }
     },
@@ -104,11 +104,12 @@ export default {
         async getWatchlist(){
             const response = await this.$store.dispatch('getWatchlist');
 
-            this.watchlist = response
-
-            this.watchlist.forEach(async(item) => {
+            response.forEach(async(item) => {
                 const data = await getStock(item);
-                data["name"] = item
+                const profile = await getProfile(item)
+
+                data['name'] = item
+                this.stockProfile.push(profile)
                 this.stockDetails.push(data);
             })
 
@@ -129,11 +130,14 @@ export default {
                     this.form.addThis = ''
                     return
                 }
-                const stock = this.form.addThis.toUpperCase()
-                await addToList(stock) 
-                this.getWatchlist()
+                const stock = this.form.addThis.toUpperCase();
+                await addToList(stock); 
+                this.stockDetails = [];
+                this.stockProfile = [];
+                this.getWatchlist();
+                this.form.addThis = '';
+                
 
-                this.form.addThis = ''
 
                 Vue.$toast.open({
                 type: 'success',
@@ -143,15 +147,18 @@ export default {
             } catch (error) {
                 Vue.$toast.open({
                 type: 'error',
-                message: error.response.data,
+                message: error.response.data.message,
                 duration: 5000
               })
             }
         },
         async delFromList(item){
             try {
-                await delFromList(item)
-                this.getWatchlist()
+                await delFromList(item);
+
+                this.stockDetails = [];
+                this.stockProfile = [];
+                this.getWatchlist();
 
                 Vue.$toast.open({
                 type: 'warning',
@@ -161,7 +168,7 @@ export default {
             } catch (error) {
                 Vue.$toast.open({
                 type: 'error',
-                message: error.response.data,
+                message: error.response.data.message,
                 duration: 5000
               })
             }
