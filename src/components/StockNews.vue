@@ -6,9 +6,9 @@
             <h4>{{ news.headline }}</h4>
             <!-- <p class="news-date text-secondary"><i>Date-</i></p> -->
             <div class="news-image-section d-flex justify-content-center">
-                <img :src="news.image" alt="news image" class="news-image">
+                <img :src="news.image" :alt="news.headline" class="news-image">
             </div>
-            <p>{{ news.summary }}</p>
+            <p>{{ news.summary }} <a :href="news.url" target="_blank">Click here to read more.</a></p>
         </div>
     </div>
   </div>
