@@ -11,3 +11,9 @@ export const getStock = async (stock) => {
 
     return response.data;
 }
+
+export const getProfile = async ( stock ) => {
+    const response = await axios.get(`${BASE_URL}stock/profile2?symbol=${stock}&token=${token}`);
+
+    return response.data;
+}

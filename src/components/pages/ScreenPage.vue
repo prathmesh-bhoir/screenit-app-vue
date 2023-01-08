@@ -6,16 +6,25 @@
     <main class="container">
         <section class="my-container main-screen">
             <section class="stock-container">
-                <div class="stock-headers d-flex justify-content-between">
-                    <div>
-                        <h1 class="name">{{ searchedFor }}</h1>
-                        <div class="d-flex">
-                            <p class="price">${{ stockDetails.c }}</p>
-                            <span :class="positive ? 'green' : 'red'">
-                                <small v-if="positive"><font-awesome-icon icon="fa-solid fa-arrow-up" /></small>
-                                <small v-else><font-awesome-icon icon="fa-solid fa-arrow-down" /></small>
-                                <small class="pecrentage-change">{{ stockDetails.dp }}%</small>
-                            </span>
+                <div class="stock-headers d-flex justify-content-between flex-wrap">
+                    <div class="">
+                        <div class="name-and-pricechange d-flex flex-wrap">
+                            <h1 class="name">{{ stockProfile.name }}</h1>
+                            <div class="d-flex align-items-center">
+                                <p class="price">${{ stockDetails.c }}</p>
+                                <span :class="positive ? 'green' : 'red'">
+                                    <small v-if="positive"><font-awesome-icon icon="fa-solid fa-arrow-up" /></small>
+                                    <small v-else><font-awesome-icon icon="fa-solid fa-arrow-down" /></small>
+                                    <small class="pecrentage-change">{{ stockDetails.dp }}%</small>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="link-and-symbol d-flex flex-wrap">
+                            <router-link class="text-decoration-none d-flex align-items-center" :to="{ path: stockProfile.weburl }">
+                                <font-awesome-icon icon="fa-solid fa-link" />
+                                <p class="stock-link">{{ stockProfile.weburl.slice(12,-1) }}</p>
+                            </router-link>
+                            <p class="symbol">NASDAQ: {{ searchedFor }}</p>
                         </div>
                     </div>
                     <div v-if="isLogged" class="">
@@ -73,7 +82,7 @@ import AppMenu from '../AppMenu.vue';
 import StockChart from '../StockChart.vue'
 
 import Vue from 'vue';
-import {getStock} from '../../services/stockDetails'
+import { getStock, getProfile } from '../../services/stockDetails'
 import { addToList, delFromList } from '@/services/watchlist';
 
 export default {
@@ -87,6 +96,7 @@ export default {
         return{
             searchedFor: 'null',
             stockDetails: '',
+            stockProfile: '',
             valid: true,
             positive: false,
             watchlist: '',
@@ -134,8 +144,10 @@ export default {
             let stock = this.$route.params.name;
             this.searchedFor = stock.toUpperCase();
             let res = await getStock(stock.toUpperCase());
-            console.log(res)
+            let profile = await getProfile(stock.toUpperCase());
+            console.log(profile)
             if(res.dp){
+                this.stockProfile = profile 
                 this.stockDetails = res;
                 this.valid = true
             }else{
@@ -223,10 +235,20 @@ main{
 }
 .name{
     margin: 0;
+    padding: 0;
+    margin-right: 1em;
+    margin-bottom: 0.25em;
 }
+.stock-link{
+    font-weight: 500;
+    margin-left: 5px;
+    margin-right: 0.5em;
+}
+
 .addToList-btn{
     border: 1px solid black;
     border-radius: 5px;
+    margin-top: 0.5em;
     padding: 0.25em 0.75em 0.25em 0.75em;
     background-color: #625AFC;
     color: white;
@@ -235,6 +257,7 @@ main{
 .remFromList-btn{
     border: none;
     border-radius: 5px;
+    margin-top: 0.5em;
     padding: 0.25em 0.75em 0.25em 0.75em;
     background-color: crimson;
     color: white;
@@ -253,7 +276,6 @@ main{
 .chart-container{
     margin-bottom: 1em;
 }
-
 .stock-details{
     border: 1px solid lightgrey;
     border-radius: 5px;
@@ -287,12 +309,8 @@ main{
         border-bottom: 0.5px solid lightgrey;
     }
 }
-@media (max-width: 400px) {
-    .stock-headers{
-        flex-direction: column;
-    }
-    .addToList-btn,
-    .remFromList-btn{
+@media (max-width: 525px) { 
+    .addToList-btn {
         margin-top: 0.5em;
     }
     .stock-details{
