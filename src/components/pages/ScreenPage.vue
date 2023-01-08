@@ -66,6 +66,9 @@
                 </section>
             </section>
         </section>
+        <section class="my-container news-section">
+            <StockNews :stock="searchedFor" />
+        </section>
     </main>
     <div>
         <AppFooter />
@@ -80,6 +83,7 @@
 import AppFooter from '../AppFooter.vue';
 import AppMenu from '../AppMenu.vue';
 import StockChart from '../StockChart.vue'
+import StockNews from '../StockNews.vue';
 
 import Vue from 'vue';
 import { getStock, getProfile } from '../../services/stockDetails'
@@ -90,7 +94,8 @@ export default {
     components:{
         AppMenu,
         AppFooter,
-        StockChart
+        StockChart,
+        StockNews
     },
     data(){
         return{
@@ -225,10 +230,12 @@ main{
     padding-top: 6em;
     padding-bottom: 6em;
 }
-.main-screen{
+.main-screen,
+.news-section{
     width: 100%;
     border-radius: 10px;
-    padding: 1em 1em 3em 1em;
+    padding: 1em 1em 2em 1em;
+    margin-bottom: 3em;
 }
 .stock-headers{
     margin-bottom: 1em;

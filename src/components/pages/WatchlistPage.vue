@@ -23,7 +23,7 @@
                     </form>
                 </div>
             </div>
-            <div class="watchlist container">                
+            <div v-if="stockDetails.length > 0" class="watchlist container">                
                 <table class="watchlist-table table table-bordered" :class="theme=='light' ? 'table-striped' : ''">
                     <thead>
                         <tr>
@@ -46,6 +46,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div v-else>
+                <h4 class="red text-center">Your watchlist is empty!!</h4>
             </div>
         </section>
     </main>

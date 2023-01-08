@@ -17,3 +17,35 @@ export const getProfile = async ( stock ) => {
 
     return response.data;
 }
+
+export const getNews = async (stock) => {
+    const date = new Date()
+    const fromDate = new Date(date);
+    fromDate.setDate(fromDate.getDate() - 1)
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    if(day<10){
+        day = `0${day}`
+    }
+    if(month<10){
+        month = `0${month}`
+    }
+    let year = date.getFullYear();
+
+    let fromDay = fromDate.getDate();
+    let fromMonth = fromDate.getMonth() + 1;
+    if(fromDay<10){
+        fromDay = `0${fromDay}`
+    }
+    if(fromMonth<10){
+        fromMonth = `0${fromMonth}`
+    }
+    let fromYear = fromDate.getFullYear();
+
+    let today = `${year}-${month}-${day}`;
+    let yesterday = `${fromYear}-${fromMonth}-${fromDay}`
+    const response = await axios.get(`${BASE_URL}/company-news?symbol=${stock}&from=${yesterday}&to=${today}&token=${token}`);
+
+    return response.data;
+}
