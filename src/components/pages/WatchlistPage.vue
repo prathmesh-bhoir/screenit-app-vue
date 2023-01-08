@@ -23,7 +23,7 @@
                     </form>
                 </div>
             </div>
-            <div v-if="stockDetails.length > 0" class="watchlist container">                
+            <div v-if="!loading && stockDetails.length > 0" class="watchlist container">                
                 <table class="watchlist-table table table-bordered" :class="theme=='light' ? 'table-striped' : ''">
                     <thead>
                         <tr>
@@ -46,6 +46,9 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div v-if="loading" class="text-center">
+                <b-spinner variant="primary"></b-spinner>
             </div>
             <!-- <div v-else>
                 <h4 class="red text-center">Your watchlist is empty!!</h4>
@@ -79,7 +82,8 @@ export default {
             },
             stockDetails: [],
             stockProfile: [],
-            theme: ''
+            theme: '',
+            loading: false
         }
     },
     validations: {
@@ -101,23 +105,32 @@ export default {
     },
     created(){
         this.changeTheme()
+    },
+    mounted(){
         this.getWatchlist()
     },
     methods: {
         async getWatchlist(){
-            const response = await this.$store.dispatch('getWatchlist');
+            this.loading = true;
 
-            this.stockDetails = [];
-            this.stockProfile = [];
+                const response = await this.$store.dispatch('getWatchlist');
+    
+                this.stockDetails = [];
+                this.stockProfile = [];
+    
+                response.forEach(async(item) => {
+                    const data = await getStock(item);
+                    const profile = await getProfile(item)
+    
+                    data['name'] = item
+                    this.stockProfile.push(profile)
+                    this.stockDetails.push(data);
+                })
 
-            response.forEach(async(item) => {
-                const data = await getStock(item);
-                const profile = await getProfile(item)
-
-                data['name'] = item
-                this.stockProfile.push(profile)
-                this.stockDetails.push(data);
-            })
+                if(this.stockDetails){
+                    this.loading = false;
+                }
+            
 
         },
         async addToList(){
@@ -127,6 +140,7 @@ export default {
             }
             try {
                 const valid = await getStock(this.form.addThis)
+                const stock = this.form.addThis.toUpperCase();
                 if(!valid.c){
                     Vue.$toast.open({
                     type: 'error',
@@ -136,7 +150,7 @@ export default {
                     this.form.addThis = ''
                     return
                 }
-                const stock = this.form.addThis.toUpperCase();
+                
                 await addToList(stock); 
                 this.getWatchlist();
                 this.form.addThis = '';

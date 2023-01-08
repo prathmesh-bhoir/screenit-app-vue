@@ -21,7 +21,7 @@ export const getProfile = async ( stock ) => {
 export const getNews = async (stock) => {
     const date = new Date()
     const fromDate = new Date(date);
-    fromDate.setDate(fromDate.getDate() - 1)
+    fromDate.setDate(fromDate.getDate() - 2)
 
     let day = date.getDate();
     let month = date.getMonth() + 1;
