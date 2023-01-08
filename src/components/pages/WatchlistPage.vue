@@ -47,9 +47,9 @@
                     </tbody>
                 </table>
             </div>
-            <div v-else>
+            <!-- <div v-else>
                 <h4 class="red text-center">Your watchlist is empty!!</h4>
-            </div>
+            </div> -->
         </section>
     </main>
     <AppFooter />
@@ -107,6 +107,9 @@ export default {
         async getWatchlist(){
             const response = await this.$store.dispatch('getWatchlist');
 
+            this.stockDetails = [];
+            this.stockProfile = [];
+
             response.forEach(async(item) => {
                 const data = await getStock(item);
                 const profile = await getProfile(item)
@@ -135,8 +138,6 @@ export default {
                 }
                 const stock = this.form.addThis.toUpperCase();
                 await addToList(stock); 
-                this.stockDetails = [];
-                this.stockProfile = [];
                 this.getWatchlist();
                 this.form.addThis = '';
                 
@@ -159,8 +160,6 @@ export default {
             try {
                 await delFromList(item);
 
-                this.stockDetails = [];
-                this.stockProfile = [];
                 this.getWatchlist();
 
                 Vue.$toast.open({
