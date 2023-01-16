@@ -108,6 +108,7 @@ export default {
         this.getWatchlist();
     },
     mounted(){
+
     },
     methods: {
         async getWatchlist(){

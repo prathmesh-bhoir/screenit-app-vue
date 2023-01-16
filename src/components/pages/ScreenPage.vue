@@ -131,7 +131,8 @@ export default {
         this.userStatus()
     },  
     mounted(){
-        document.title =  this.$route.params.name + ' - Screenit-App'
+        document.title =  this.$route.params.name + ' - Screenit-App';
+        this.checkWatchlist();
     }, 
     methods:{
         userStatus(){
