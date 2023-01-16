@@ -105,9 +105,9 @@ export default {
     },
     created(){
         this.changeTheme()
+        this.getWatchlist();
     },
     mounted(){
-        this.getWatchlist()
     },
     methods: {
         async getWatchlist(){

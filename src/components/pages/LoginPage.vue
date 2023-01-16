@@ -132,15 +132,17 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('login', this.form);
-        this.$router.push({
-          name: 'home'
-        });
-        Vue.$toast.open({
-          type: 'success',
-          message: "User logged in successfully!",
-          duration: 5000
-        })
+        const data = await this.$store.dispatch('login', this.form);
+        if(data){
+          this.$router.push({
+            name: 'home'
+          });
+          Vue.$toast.open({
+            type: 'success',
+            message: "User logged in successfully!",
+            duration: 5000
+          })
+        }
 
       } catch (error) {
         Vue.$toast.open({

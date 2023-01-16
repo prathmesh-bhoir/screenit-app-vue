@@ -39,6 +39,8 @@ const auth = {
                 commit('setEmail', email);
                 commit('setName', name);
 
+                return data;
+
             }
         }
 }
