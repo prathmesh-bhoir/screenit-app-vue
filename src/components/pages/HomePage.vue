@@ -59,9 +59,6 @@ export default {
             symbols: ''
         }
     },
-    created:{
-
-    },
     components: {
         AppLogo,
         AppMenu,
