@@ -7,7 +7,10 @@
                 <AppLogo />
             </div>
             <div class="d-flex justify-content-center flex-wrap">
-                <p class="sub-header">Stock analysis and screening tool for investors in India.</p>
+                <p class="sub-header text-center">Stock analysis and screening tool for investors in India.</p>
+            </div>
+            <div class="">
+                <p class="text-secondary search-guide text-center">( Search with company's NASDAQ Symbol For e.g. WMT, NKE, AAPL )</p>
             </div>
             <div class="search-box">
                 <SearchComp />
@@ -82,6 +85,10 @@ section{
 .sub-header{
     font-size: 1.25em;
 }
+.search-guide{
+    font-size: 1em;
+    margin-bottom: 0;
+}
 .search-box{
     width: 40%;
     margin-top: 1em;
@@ -116,6 +123,9 @@ section{
     .sub-header{
         font-size: 0.9em;
         margin-bottom: 0.5rem;
+    }
+    .search-guide{
+        font-size: 0.7em;
     }
 
     .mr-right,

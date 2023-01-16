@@ -105,4 +105,10 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+@media (max-width: 500px) {
+  .search-input{
+    font-size: 0.9em;
+  }
+}
 </style>
