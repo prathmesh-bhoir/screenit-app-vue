@@ -22,7 +22,7 @@
                         <div class="link-and-symbol d-flex flex-wrap">
                             <a class="text-decoration-none d-flex align-items-center" :href="stockProfile.weburl" target="_blank">
                                 <font-awesome-icon icon="fa-solid fa-link" />
-                                <p class="stock-link">{{ stockProfile.weburl.slice(12,-1) }}</p>
+                                <p class="stock-link">{{ stockProfile.weburl?.slice(12,-1) }}</p>
                             </a>
                             <p class="symbol">NASDAQ: {{ searchedFor }}</p>
                         </div>
