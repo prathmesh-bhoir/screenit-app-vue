@@ -48,7 +48,7 @@ export default {
         if( this.$v.form.$invalid ) {
             return;
         }else{
-          const valid = await getStock(this.form.searchFor)
+          const valid = await getStock(this.form.searchFor.toUpperCase())
           if (!valid.c) {
             Vue.$toast.open({
               type: 'error',
