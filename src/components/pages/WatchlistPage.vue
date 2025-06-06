@@ -140,7 +140,7 @@ export default {
                 return;
             }
             try {
-                const valid = await getStock(this.form.addThis)
+                const valid = await getStock(this.form.addThis.toUpperCase())
                 const stock = this.form.addThis.toUpperCase();
                 if(!valid.c){
                     Vue.$toast.open({
